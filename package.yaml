@@ -1,0 +1,80 @@
+name: pnp
+version: 0.1.0.0
+license: ISC
+github: proger/pnp
+category: AI
+extra-source-files:
+  - README.md
+
+ghc-options:
+  - -Wno-missing-signatures
+  - -Wno-unused-matches
+  - -Wno-unused-imports
+  - -Wno-type-defaults
+  - -Wincomplete-patterns
+  - -Wno-partial-type-signatures
+
+default-extensions:
+  - OverloadedStrings
+  - PackageImports
+  - ScopedTypeVariables
+  - TypeApplications
+  - TypeFamilies
+  - KindSignatures
+  - DataKinds
+  - DeriveFunctor
+  - DeriveGeneric
+  - GeneralizedNewtypeDeriving
+  - FlexibleContexts
+  - PartialTypeSignatures
+  - ConstraintKinds
+  - NoMonomorphismRestriction
+
+dependencies:
+  - base
+  - containers
+  - bytestring
+  - text
+  - unix
+  - process
+  - directory
+  - pretty-show
+  - vector
+  - linear
+  - simple-reflect
+  - random
+  - criterion
+  - JuicyPixels
+  - mwc-random
+  - primitive
+  - hspec
+  - QuickCheck
+  - diagrams-contrib
+  - diagrams-core
+  - diagrams-svg
+  - diagrams-lib
+  - colour
+  - hmatrix
+
+library:
+  source-dirs: src
+
+executables:
+  pnp:
+    main: pnp.hs
+    source-dirs: app
+    dependencies:
+      - pnp
+  benchmark:
+    main: benchmark.hs
+    source-dirs: app
+    dependencies:
+      - pnp
+
+tests:
+  test:
+    main: Spec.hs
+    source-dirs:
+      - test
+    dependencies:
+      - pnp

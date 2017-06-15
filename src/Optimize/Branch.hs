@@ -1,12 +1,11 @@
-module Discrete where
+module Optimize.Branch (module Optimize.Branch, module Data.Ord) where
 
-import Debug.Trace
+import Data.Ord
 import Data.Tree
 
 data Bound a = Bound a
              | Unknown
-             deriving (Show, Eq)
-
+             deriving (Show, Eq, Functor)
 
 
 a `betterThan` b = case (a, b) of
@@ -14,6 +13,13 @@ a `betterThan` b = case (a, b) of
   (Unknown, x)       -> False
   (x, Unknown)       -> True
   (Bound x, Bound y) -> x <= y
+
+
+a >>?> b = a `contendBy` b
+
+a `contendBy` b = case a of
+  Bound a' -> if a' <= b then a else Bound b
+  Unknown  -> Bound b
 
 -- | Unlike Maybe's Ord this one steers away from Unknown
 instance (Eq a, Ord a) => Ord (Bound a) where
